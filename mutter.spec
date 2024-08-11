@@ -13,11 +13,11 @@
 %global gnome_major_version 46
 %global gnome_version %{gnome_major_version}.4
 %global tarball_version %%(echo %{gnome_version} | tr '~' '.')
-%global _default_patch_fuzz 2
+%global _default_patch_fuzz 1
 
 Name:          mutter
-Version:       %{gnome_version}.ublue.{{{ git_dir_version }}}
-Release:       2%{?dist}
+Version:       %{gnome_version}.{{{ git_dir_version }}}
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
