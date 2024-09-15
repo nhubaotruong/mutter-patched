@@ -10,18 +10,21 @@
 %global libei_version 1.0.0
 %global mutter_api_version 14
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global gnome_major_version 46
+%global gnome_version %{gnome_major_version}.5
+%global tarball_version %%(echo %{gnome_version} | tr '~' '.')
+%global _default_patch_fuzz 1
 
 Name:          mutter
-Version:       46.5
-Release:       %autorelease
+Version:       %{gnome_version}.{{{ git_dir_version }}}
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
-URL:           https://www.gnome.org
-Source0:       https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+URL:           http://www.gnome.org
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
-Patch:         mybigpatch.patch
+Patch:        mybigpatch.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -52,10 +55,10 @@ BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: sysprof-devel
 BuildRequires: pkgconfig(libsystemd)
+BuildRequires: xorg-x11-server-Xorg
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: desktop-file-utils
-BuildRequires: cvt
 # Bootstrap requirements
 BuildRequires: gettext-devel git-core
 BuildRequires: pkgconfig(libcanberra)
@@ -103,6 +106,8 @@ Provides: firstboot(windowmanager) = mutter
 Provides: bundled(cogl) = 1.22.0
 Provides: bundled(clutter) = 1.26.0
 
+Provides: mutter = %{gnome_version}-%{release}
+
 Conflicts: mutter < 45~beta.1-2
 
 # Make sure dnf updates gnome-shell together with this package; otherwise we
@@ -125,6 +130,7 @@ behaviors to meet the needs of the environment.
 Summary: Common files used by %{name} and forks of %{name}
 BuildArch: noarch
 Conflicts: mutter < 45~beta.1-2
+Provides: mutter-common = %{gnome_version}-%{release}
 
 %description common
 Common files used by Mutter and soft forks of Mutter
