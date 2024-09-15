@@ -22,7 +22,7 @@ Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           http://www.gnome.org
-Source0:       git+https://gitlab.gnome.org/GNOME/mutter.git#commit=f585134c114797aae27f1a82013c665a5c1b94ed
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
 # Custom patches https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
 Patch0:        mr3567.patch
@@ -160,6 +160,9 @@ the functionality of the installed %{name} package.
 
 %prep
 %autosetup -S git -n %{name}-%{tarball_version}
+%patch0 -Np1 -i
+%patch1 -Np1 -i
+%patch2 -Np1 -i
 
 %build
 %meson -Degl_device=true -Dwayland_eglstream=true
