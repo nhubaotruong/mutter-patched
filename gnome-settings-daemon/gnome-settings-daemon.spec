@@ -181,8 +181,8 @@ developing applications that use %{name}.
 %{_libexecdir}/gsd-wwan
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.wwan.gschema.xml
 
-%dir %{_libdir}/gnome-settings-daemon-%{major_version}
-%{_libdir}/gnome-settings-daemon-%{major_version}/libgsd.so
+%dir %{_libdir}/gnome-settings-daemon-%{gnome_major_version}
+%{_libdir}/gnome-settings-daemon-%{gnome_major_version}/libgsd.so
 
 %{_sysconfdir}/xdg/Xwayland-session.d/00-xrdb
 %{_userunitdir}/gnome-session-x11-services-ready.target.wants/
@@ -197,7 +197,7 @@ developing applications that use %{name}.
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.gschema.xml
 
 %files devel
-%{_includedir}/gnome-settings-daemon-%{major_version}
+%{_includedir}/gnome-settings-daemon-%{gnome_major_version}
 %{_libdir}/pkgconfig/gnome-settings-daemon.pc
 
 %changelog
