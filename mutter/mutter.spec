@@ -21,25 +21,7 @@ License:       GPLv2+
 URL:           https://www.gnome.org
 Source0:       https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
-# Work-around for OpenJDK's compliance test
-#Patch:         0001-window-actor-Special-case-shaped-Java-windows.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1936991
-#Patch:         mutter-42.alpha-disable-tegra.patch
-
-# https://pagure.io/fedora-workstation/issue/79
-#Patch:         0001-place-Always-center-initial-setup-fedora-welcome.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2239128
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/3068
-# not upstreamed because for upstream we'd really want to find a way
-# to fix *both* problems
-#Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
-
-# AUR https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
-Patch: mr3567.patch
-Patch: mr3751.patch
-Patch: mr1441.patch
+Patch:         mybigpatch.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
