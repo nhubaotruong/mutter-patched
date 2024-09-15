@@ -10,16 +10,7 @@ License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
-# No portal helper if WebKitGTK is not installed
-Patch: optional-portal-helper.patch
-
-# Some users might have a broken PAM config, so we really need this
-# downstream patch to stop trying on configuration errors.
-Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-# AUR
-Patch: fix-tray-offscreen-xwindows.patch
-Patch: mr3252.patch
+Patch: mybigpatch.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7
