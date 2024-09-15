@@ -10,24 +10,36 @@
 %global libei_version 1.0.0
 %global mutter_api_version 14
 
-%global gnome_major_version 46
-%global gnome_version %{gnome_major_version}.5
-%global tarball_version %%(echo %{gnome_version} | tr '~' '.')
-%global _default_patch_fuzz 1
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       %{gnome_version}.{{{ git_dir_version }}}
-Release:       1%{?dist}
+Version:       46.5
+Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           http://www.gnome.org
-Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
-# Custom patches https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
-Patch0:        mr3567.patch
-Patch1:        mr3751.patch
-Patch2:        mr1441.patch
+# Work-around for OpenJDK's compliance test
+Patch:         0001-window-actor-Special-case-shaped-Java-windows.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1936991
+Patch:         mutter-42.alpha-disable-tegra.patch
+
+# https://pagure.io/fedora-workstation/issue/79
+Patch:         0001-place-Always-center-initial-setup-fedora-welcome.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2239128
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/3068
+# not upstreamed because for upstream we'd really want to find a way
+# to fix *both* problems
+Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
+
+# AUR https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
+Patch: mr3567.patch
+Patch: mr3751.patch
+Patch: mr1441.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -58,10 +70,10 @@ BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: sysprof-devel
 BuildRequires: pkgconfig(libsystemd)
-BuildRequires: xorg-x11-server-Xorg
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: desktop-file-utils
+BuildRequires: cvt
 # Bootstrap requirements
 BuildRequires: gettext-devel git-core
 BuildRequires: pkgconfig(libcanberra)
@@ -109,8 +121,6 @@ Provides: firstboot(windowmanager) = mutter
 Provides: bundled(cogl) = 1.22.0
 Provides: bundled(clutter) = 1.26.0
 
-Provides: mutter = %{gnome_version}-%{release}
-
 Conflicts: mutter < 45~beta.1-2
 
 # Make sure dnf updates gnome-shell together with this package; otherwise we
@@ -133,7 +143,6 @@ behaviors to meet the needs of the environment.
 Summary: Common files used by %{name} and forks of %{name}
 BuildArch: noarch
 Conflicts: mutter < 45~beta.1-2
-Provides: mutter-common = %{gnome_version}-%{release}
 
 %description common
 Common files used by Mutter and soft forks of Mutter
@@ -160,9 +169,6 @@ the functionality of the installed %{name} package.
 
 %prep
 %autosetup -S git -n %{name}-%{tarball_version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %meson -Degl_device=true -Dwayland_eglstream=true
