@@ -160,9 +160,9 @@ the functionality of the installed %{name} package.
 
 %prep
 %autosetup -S git -n %{name}-%{tarball_version}
-%patch0 -Np1 -i
-%patch1 -Np1 -i
-%patch2 -Np1 -i
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %meson -Degl_device=true -Dwayland_eglstream=true
