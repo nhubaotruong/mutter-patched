@@ -3644,7 +3644,7 @@ index ca8ca2ade..91ca6a836 100644
  
  META_EXPORT
 diff --git a/src/tests/meta-monitor-manager-test.c b/src/tests/meta-monitor-manager-test.c
-index f9275160c..fd37eab38 100644
+index f9275160c..0790ebbe4 100644
 --- a/src/tests/meta-monitor-manager-test.c
 +++ b/src/tests/meta-monitor-manager-test.c
 @@ -517,6 +517,12 @@ meta_crtc_test_set_gamma_lut (MetaCrtc           *crtc,
@@ -3652,7 +3652,7 @@ index f9275160c..fd37eab38 100644
  }
  
 +static int64_t
-+meta_crtc_test_get_deadline_evasion (MetaCrtcNative *crtc_native)
++meta_crtc_test_get_deadline_evasion (MetaCrtcMode *crtc_native)
 +{
 +  return 0;
 +}
