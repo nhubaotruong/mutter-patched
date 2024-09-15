@@ -11,7 +11,7 @@
 %global mutter_api_version 14
 
 %global gnome_major_version 46
-%global gnome_version %{gnome_major_version}.4
+%global gnome_version %{gnome_major_version}.5
 %global tarball_version %%(echo %{gnome_version} | tr '~' '.')
 %global _default_patch_fuzz 1
 
@@ -24,8 +24,10 @@ License:       GPLv2+
 URL:           http://www.gnome.org
 Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
-# Work-around for OpenJDK's compliance test
-Patch0:        mybigpatch.patch
+# Custom patches https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
+Patch0:        mr3567.patch
+Patch0:        mr3751.patch
+Patch1:        mr1441.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
