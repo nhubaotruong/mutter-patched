@@ -1,14 +1,16 @@
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
+%global gnome_major_version 46
+%global gnome_version %{gnome_major_version}.5
+%global tarball_version %%(echo %{gnome_version} | tr '~' '.')
+%global _default_patch_fuzz 1
 
 Name:           gnome-shell
-Version:        46.5
-Release:        %autorelease
+Version:        %{gnome_version}.{{{ git_dir_version }}}
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
-Source0:        https://download.gnome.org/sources/gnome-shell/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
 Patch: mybigpatch.patch
 

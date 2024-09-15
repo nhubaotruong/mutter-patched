@@ -10,16 +10,19 @@
 %global libei_version 1.0.0
 %global mutter_api_version 14
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
+%global gnome_major_version 46
+%global gnome_version %{gnome_major_version}.4
+%global tarball_version %%(echo %{gnome_version} | tr '~' '.')
+%global _default_patch_fuzz 1
 
 Name:          mutter
-Version:       46.5
-Release:       %autorelease
+Version:       %{gnome_version}.{{{ git_dir_version }}}
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           https://www.gnome.org
-Source0:       https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
 Patch:         mybigpatch.patch
 

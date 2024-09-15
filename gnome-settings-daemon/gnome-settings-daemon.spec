@@ -13,17 +13,19 @@
 %endif
 %global systemd_units org.gnome.SettingsDaemon.A11ySettings.service org.gnome.SettingsDaemon.Color.service org.gnome.SettingsDaemon.Datetime.service org.gnome.SettingsDaemon.Housekeeping.service org.gnome.SettingsDaemon.Keyboard.service org.gnome.SettingsDaemon.MediaKeys.service org.gnome.SettingsDaemon.Power.service org.gnome.SettingsDaemon.PrintNotifications.service org.gnome.SettingsDaemon.Rfkill.service org.gnome.SettingsDaemon.ScreensaverProxy.service org.gnome.SettingsDaemon.Sharing.service org.gnome.SettingsDaemon.Smartcard.service org.gnome.SettingsDaemon.Sound.service org.gnome.SettingsDaemon.UsbProtection.service org.gnome.SettingsDaemon.Wwan.service org.gnome.SettingsDaemon.XSettings.service %%{wacom_unit}
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
+%global gnome_major_version 46
+%global gnome_version %{gnome_major_version}.4
+%global tarball_version %%(echo %{gnome_version} | tr '~' '.')
+%global _default_patch_fuzz 1
 
 Name:           gnome-settings-daemon
-Version:        46.0
-Release:        %autorelease
+Version:        %{gnome_version}.{{{ git_dir_version }}}
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{tarball_version}.tar.xz
 
 Patch: 0001-xsettings-Get-UI-scaling-factor-from-dedicated-D-Bus.patch
 
