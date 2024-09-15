@@ -26,8 +26,8 @@ Source0:       https://download.gnome.org/sources/%{name}/%{gnome_major_version}
 
 # Custom patches https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mutter-performance
 Patch0:        mr3567.patch
-Patch0:        mr3751.patch
-Patch1:        mr1441.patch
+Patch1:        mr3751.patch
+Patch2:        mr1441.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
